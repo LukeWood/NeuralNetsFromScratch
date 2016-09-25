@@ -26,9 +26,11 @@ class stateless_model:
 		
 	#randomly adjusts layers for training, highly inefficient
 	def training_iter_random(self,inp,out,adjustment_rate=.01):
-		temp_inp = self.input_layer
-		temp_hidden = self.hidden_layers
-		temp_output = self.output_layer
+		temp_inp = np.copy(self.input_layer)
+		temp_hidden = []
+		for i in self.hidden_layers:
+			temp_hidden.append(np.copy(i))
+		temp_output = np.copy(self.output_layer)
 		
 		#add a random number in the range of adjustment_rate to each element in our np array
 		for i in np.nditer(temp_inp,op_flags=["readwrite"]):
