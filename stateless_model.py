@@ -1,8 +1,12 @@
 import numpy as np
 import random
+
+#params
+#hidden_size
+#hidden_layers
 class stateless_model:
 
-	def __init__(self,input_size,out_size,epsilon=0.01,reg_lambda=0.01,hidden_size=5, hidden_layers=1):	
+	def __init__(self,input_size,out_size,hidden_size=5, hidden_layers=1):	
 		self.input_layer = np.random.random((input_size,hidden_size))
 		#first hidden
 		self.hidden_layers = [np.random.random((hidden_size,hidden_size)) for x in range(hidden_layers)]
@@ -58,13 +62,13 @@ class stateless_model:
 			for i0, o0 in zip(inp,out):
 				self.training_iter_random(i0,o0)
 	
-a = stateless_model(2,2)
+a = stateless_model(2,3,hidden_layers=10,hidden_size=2)
 
 inpu = np.array([[2,2]])
-target = np.array([[2,2]])
+target = np.array([[2,2,4]])
 print("TARGET: ")
 print(target)
-for i in range(1000):
-	print("Iteration: %i"%(i*10))
+for i in range(50):
+	print("Iteration: %i"%(i*5))
 	a.train(inpu,target,training_iterations=10)
 	print(a.activate(inpu))
