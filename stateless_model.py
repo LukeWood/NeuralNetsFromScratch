@@ -61,14 +61,13 @@ class stateless_model:
 		for i in range(training_iterations):
 			for i0, o0 in zip(inp,out):
 				self.training_iter_random(i0,o0)
-	
-a = stateless_model(2,3,hidden_layers=10,hidden_size=2)
 
-inpu = np.array([[2,2]])
-target = np.array([[2,2,4]])
-print("TARGET: ")
-print(target)
-for i in range(50):
-	print("Iteration: %i"%(i*5))
-	a.train(inpu,target,training_iterations=10)
-	print(a.activate(inpu))
+
+	#train on multiple data points
+	def train_on_set(self,inp_set,out_set, training_iterations=10):
+		if(len(inp_set) < len(out_set)):
+			print("Error, input set has less elements than output set")
+			return
+		for i in range(training_iterations):
+			for inp,out in zip(inp_set,out_set):
+				self.training_iter_random(inp,out)
